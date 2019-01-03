@@ -1,10 +1,11 @@
 import 'dart:math';
 import 'dart:ui';
+import 'package:flutter/widgets.dart';
 
 import 'package:flutter/material.dart' show Colors;
 
 import 'package:flame/game.dart';
-import 'package:flame/component.dart';
+import 'package:flame/components/component.dart';
 import 'package:flame/flame.dart';
 
 const SPEED = 250.0;
@@ -22,11 +23,13 @@ main() async {
 
   Flame.audio.loop('music.ogg');
 
-  var game = new MyGame(dimensions)..start();
+  var game = new MyGame(dimensions);
   window.onPointerDataPacket = (packet) {
     var pointer = packet.data.first;
     game.input(pointer.physicalX, pointer.physicalY);
   };
+
+  runApp(game.widget);
 }
 
 class Crate extends SpriteComponent {
